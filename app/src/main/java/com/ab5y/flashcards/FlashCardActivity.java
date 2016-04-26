@@ -23,20 +23,35 @@ public class FlashCardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flash_card);
 
+        TextView tvCardTopic = (TextView) findViewById(R.id.tvCardTopic);
+        tvCardTopic.setVisibility(View.VISIBLE);
+        TextView tvCardContent = (TextView) findViewById(R.id.tvCardContent);
+
+        Intent intent = getIntent();
+        if(intent != null){
+            String topic = intent.getStringExtra(NewCardActivity.TOPIC_MSG);
+            String content = intent.getStringExtra(NewCardActivity.CONTENT_MSG);
+            tvCardTopic.setText(topic);
+            tvCardContent.setText(content);
+        }
+
         RelativeLayout rlMainFlashCard = (RelativeLayout) findViewById(R.id.rlFlashCard);
         rlMainFlashCard.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event){
                 v.getParent().requestDisallowInterceptTouchEvent(true);
                 TextView tvCardTopic = (TextView) findViewById(R.id.tvCardTopic);
+                TextView tvCardContent = (TextView) findViewById(R.id.tvCardContent);
 
                 switch (event.getAction() & ACTION_MASK) {
                     case ACTION_UP:
-                        tvCardTopic.setVisibility(View.INVISIBLE);
+                        tvCardContent.setVisibility(View.INVISIBLE);
+                        tvCardTopic.setVisibility(View.VISIBLE);
                         v.getParent().requestDisallowInterceptTouchEvent(false);
                         break;
                     case ACTION_DOWN:
-                        tvCardTopic.setVisibility(View.VISIBLE);
+                        tvCardTopic.setVisibility(View.INVISIBLE);
+                        tvCardContent.setVisibility(View.VISIBLE);
                         break;
                 }
                 return true;

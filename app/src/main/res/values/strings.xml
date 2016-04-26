@@ -4,4 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="action_new_flash_card">New Card</string>
+    <string name="button_new_flash_card">New Flash Card</string>
+    <string name="button_create_new_flash_card">Create</string>
+    <string name="button_display_flash_cards">Display Flash Cards</string>
 </resources>

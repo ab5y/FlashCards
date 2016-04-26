@@ -60,6 +60,9 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:id="@+id/btnCreateNewCard"/>
+        android:id="@+id/btnCreateNewCard"
+        android:layout_alignParentBottom="true"
+        android:text="@string/button_create_new_flash_card"
+        android:onClick="btnCreate_onClick"/>
 
 </RelativeLayout>
