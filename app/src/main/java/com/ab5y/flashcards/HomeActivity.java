@@ -1,10 +1,16 @@
 package com.ab5y.flashcards;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import com.ab5y.flashcards.helper.DatabaseHelper;
+import com.ab5y.flashcards.model.Flashcard;
+
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -22,6 +28,14 @@ public class HomeActivity extends AppCompatActivity {
 
     public void btnDisplay_onClick(View view) {
         Intent intent = new Intent(this, FlashCardActivity.class);
-        startActivity(intent);
+        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+        List<Flashcard> flashcardList = db.getAllFlashcards();
+        if (!flashcardList.isEmpty()) {
+            Flashcard fc = db.getAllFlashcards().get(0);
+            long id = fc.getId(); // db.getMaxFlashcardID();
+            if (id >= 0)
+                intent.putExtra(NewCardActivity.CARD_ID, id);
+            startActivity(intent);
+        }
     }
 }

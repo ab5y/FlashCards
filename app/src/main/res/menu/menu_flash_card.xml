@@ -1,6 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".FlashCardActivity">
+    <item android:id="@+id/action_next_card" android:title="@string/action_next_flash_card"
+        android:onClick="nextCard" />
     <item android:id="@+id/action_new_card" android:title="@string/action_new_flash_card"
         android:onClick="newCard" />
     <item android:id="@+id/action_settings" android:title="@string/action_settings"

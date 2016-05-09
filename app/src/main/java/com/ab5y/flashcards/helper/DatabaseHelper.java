@@ -56,20 +56,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_FLASHCARD =
             "CREATE TABLE IF NOT EXISTS " + TABLE_FLASHCARD
             + "("
-            + KEY_ID + " INTEGER PRIMARY KEY,"
-            + KEY_NAME + " TEXT,"
-            + KEY_CONTENT + " TEXT,"
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + KEY_NAME + " TEXT NOT NULL,"
+            + KEY_CONTENT + " TEXT NOT NULL,"
             + KEY_CREATED_AT + " DATETIME"
-            + ")";
+            + ");";
 
     // Stack table create statement
     private static final String CREATE_TABLE_STACK =
             "CREATE TABLE IF NOT EXISTS " + TABLE_STACK
             + "("
-            + KEY_ID + " INTEGER PRIMARY KEY,"
-            + KEY_NAME + " TEXT,"
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + KEY_NAME + " TEXT NOT NULL,"
             + KEY_CREATED_AT + " DATETIME"
-            + ")";
+            + ");";
 
     // Flashcard_Stack table create statement
     private static final String CREATE_TABLE_FLASHCARD_STACK =
@@ -78,9 +78,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_FLASHCARD_ID + " INTEGER,"
             + KEY_STACK_ID + " INTEGER,"
-            + "FOREIGN KEY(" + KEY_FLASHCARD_ID + " REFERENCES " + TABLE_FLASHCARD + "(" + KEY_ID + "),"
-            + "FOREIGN KEY(" + KEY_STACK_ID + " REFERENCES " + TABLE_STACK + "(" + KEY_ID + ")"
-            + ")";
+            + "FOREIGN KEY(" + KEY_FLASHCARD_ID + ") REFERENCES " + TABLE_FLASHCARD + "(" + KEY_ID + "),"
+            + "FOREIGN KEY(" + KEY_STACK_ID + ") REFERENCES " + TABLE_STACK + "(" + KEY_ID + ")"
+            + ");";
+
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -176,6 +180,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (c.moveToNext());
         }
         return flashcardList;
+    }
+
+    /*
+     * Get highest ID in flashcards
+     */
+    public long getMaxFlashcardID(){
+        String selectQuery = "SELECT MAX(" + KEY_ID + ") FROM " + TABLE_FLASHCARD;
+        Log.e(LOG, selectQuery);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if(c != null) {
+            if(c.moveToFirst())
+                return c.getInt(c.getColumnIndex((KEY_ID)));
+        }
+        return -1;
+    }
+
+    public List<Integer> getAllFlashcardIDs(){
+        List<Integer> IDList = new ArrayList<Integer>();
+        String selectQuery = "SELECT " + KEY_ID + " FROM " + TABLE_FLASHCARD;
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if(c!=null){
+            if (c.moveToFirst()) {
+                do {
+                    IDList.add(c.getInt(c.getColumnIndex(KEY_ID)));
+                } while(c.moveToNext());
+            }
+        }
+        return IDList;
     }
 
     /*
@@ -388,6 +424,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
+    /*
+     * Delete a Flashcard from Stack
+     */
+    public void deleteFlashcardFromStack(long id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_FLASHCARD_STACK, KEY_ID + " = ?",
+                new String[] { String.valueOf(id) });
+    }
+
+    /*
+     * Delete Flashcard from all stacks
+     */
+    public void deleteFlashcardFromAllStacks(long flashcard_id) {
+        String selectQuery =
+                "SELECT * FROM " + TABLE_FLASHCARD_STACK
+                + "WHERE " + KEY_FLASHCARD_ID + " = " + flashcard_id;
+
+        Log.e(LOG, selectQuery);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if(c.moveToFirst()){
+            do {
+                deleteFlashcardFromStack(c.getInt(c.getColumnIndex(KEY_ID)));
+            } while (c.moveToNext());
+        }
+    }
+
+    // Closing database connection
+    public void closeDB(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        if (db != null && db.isOpen())
+            db.close();
+    }
     /**
      * get datetime
      * */
