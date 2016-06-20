@@ -1,5 +1,6 @@
 package com.ab5y.flashcards;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,10 +18,13 @@ public class NewStackActivity extends AppCompatActivity {
     }
 
     public void btnCreate_onClick(View view) {
+        Intent intent = new Intent(this, StackActivity.class);
         EditText etStackName = (EditText) findViewById(R.id.etStackName);
         String stackName = etStackName.getText().toString();
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         Stack s = new Stack(stackName);
         db.createStack(s);
+        db.closeDB();
+        startActivity(intent);
     }
 }

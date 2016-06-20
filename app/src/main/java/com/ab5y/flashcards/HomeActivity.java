@@ -38,4 +38,9 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+    public void btnNewStack_onClick(View view) {
+        Intent intent = new Intent(this, NewStackActivity.class);
+        startActivity(intent);
+    }
 }

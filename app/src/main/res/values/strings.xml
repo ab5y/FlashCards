@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">FlashCards</string>
 
+    <string name="LOG">VIEW</string>
+
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="action_new_flash_card">New Card</string>
@@ -9,5 +11,7 @@
     <string name="button_create_new_flash_card">Create</string>
     <string name="button_create_new_stack">Create</string>
     <string name="button_display_flash_cards">Display Flash Cards</string>
+    <string name="button_add_new_flash_card_to_stack">Add New Flashcard to Stack</string>
+    <string name="button_add_existing_flash_card_to_stack">Add Existing Flashcard to Stack</string>
     <string name="title_activity_new_stack">NewStackActivity</string>
 </resources>

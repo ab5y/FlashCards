@@ -20,7 +20,15 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@+id/btnNewCard"
+        android:id="@+id/btnDisplayFlashcards"
         android:text="@string/button_display_flash_cards"
         android:onClick="btnDisplay_onClick"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/btnDisplayFlashcards"
+        android:text="Create New Stack"
+        android:onClick="btnNewStack_onClick"/>
 
 </RelativeLayout>

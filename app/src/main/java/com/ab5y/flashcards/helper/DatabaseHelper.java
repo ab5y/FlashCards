@@ -57,7 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE IF NOT EXISTS " + TABLE_FLASHCARD
             + "("
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + KEY_NAME + " TEXT NOT NULL,"
+            + KEY_NAME + " TEXT NOT NULL UNIQUE,"
             + KEY_CONTENT + " TEXT NOT NULL,"
             + KEY_CREATED_AT + " DATETIME"
             + ");";
@@ -67,7 +67,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE IF NOT EXISTS " + TABLE_STACK
             + "("
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + KEY_NAME + " TEXT NOT NULL,"
+            + KEY_NAME + " TEXT NOT NULL UNIQUE,"
             + KEY_CREATED_AT + " DATETIME"
             + ");";
 

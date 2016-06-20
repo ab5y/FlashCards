@@ -31,8 +31,8 @@
         android:layout_toRightOf="@+id/tvCardTopic"
         android:layout_marginLeft="27dp"
         android:layout_marginStart="27dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignRight="@+id/btnCreateNewCard"
+        android:layout_alignEnd="@+id/btnCreateNewCard" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,11 +52,53 @@
         android:ems="10"
         android:id="@+id/etCardContent"
         android:layout_alignTop="@+id/tvCardContent"
-        android:layout_toRightOf="@+id/tvCardContent"
         android:height="100dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/etCardTopic"
+        android:layout_alignStart="@+id/etCardTopic" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Stack"
+        android:id="@+id/tvStacks"
+        android:layout_marginTop="31dp"
+        android:layout_below="@+id/etCardContent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <AutoCompleteTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/actvStacks"
+        android:layout_below="@+id/etCardContent"
+        android:layout_alignRight="@+id/etCardContent"
+        android:layout_alignEnd="@+id/etCardContent"
+        android:layout_alignLeft="@+id/etCardTopic"
+        android:layout_alignStart="@+id/etCardTopic" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvStacksSuggestions"/>
+    
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvStacks"
+        android:layout_below="@+id/etCardContent"
+        android:layout_alignRight="@+id/etCardContent"
+        android:layout_alignEnd="@+id/etCardContent"
+        android:layout_alignLeft="@+id/etCardTopic"
+        android:layout_alignStart="@+id/etCardTopic"
+        android:clickable="true"
+        android:focusable="false"
+        android:choiceMode="singleChoice"
+        android:listSelector="@drawable/bg_key"
+        android:stateListAnimator="@android:animator/fade_in"/>
+    <!--android:background="@drawable/bg_key" -->
     <Button
         android:layout_width="match_parent"
         android:layout_height="60dp"

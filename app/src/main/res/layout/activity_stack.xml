@@ -13,6 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:id="@+id/btnAddNewFlashcard"
-        android:text=""/>
+        android:text="@string/button_add_new_flash_card_to_stack"
+        android:onClick="btnNewFlashcard_onClick"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/btnAddNewFlashcard"
+        android:text="@string/button_add_existing_flash_card_to_stack"
+        android:onClick="btnExistingFlashcard_onClick"/>
 
 </RelativeLayout>
